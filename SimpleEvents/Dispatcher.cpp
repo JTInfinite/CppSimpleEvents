@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Dispatcher.h"
+#include "Event.h"
 
 
 void Dispatcher::Subscribe_Internal(std::string channel, void(*fn)())
@@ -25,4 +26,10 @@ void Dispatcher::Publish_Internal(std::string channel)
 			(*fn)();
 		}
 	}
+}
+
+void Dispatcher::ReceiveEvent_Internal(Event* event)
+{
+	std::cout << "Received " << event->ToString() << std::endl;
+	Publish(event->GetChannel());
 }

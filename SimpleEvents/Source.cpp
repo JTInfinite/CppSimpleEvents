@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Dispatcher.h"
+#include "Event.h"
 
 
 void Print()
@@ -16,6 +17,6 @@ int main()
 {
 	Dispatcher::Subscribe("Test Channel", Print);
 	Dispatcher::Subscribe("Test Channel", Print2);
-	Dispatcher::Publish("Test Channel");
+	new Event("Test Event", "Test Channel");
 	return 0;
 }

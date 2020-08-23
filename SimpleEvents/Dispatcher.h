@@ -3,6 +3,8 @@
 #include <vector>
 #include <map>
 
+class Event;
+
 // Needs to be a singleton
 class Dispatcher
 {
@@ -24,6 +26,11 @@ public:
 		return Get().Publish_Internal(channel);
 	}
 
+	static void ReceiveEvent(Event* event)
+	{
+		return Get().ReceiveEvent_Internal(event);
+	}
+
 private:
 	Dispatcher() {}; // Private constructor
 	std::map<std::string, std::vector<void (*)()>> m_Subscriptions; // Vector of function pointers to be executer upon event. The keys of the map should be the channel.
@@ -31,5 +38,6 @@ private:
 private:
 	void Subscribe_Internal(std::string channel, void(*fn)());
 	void Publish_Internal(std::string channel);
+	void ReceiveEvent_Internal(Event* event);
 };
 
